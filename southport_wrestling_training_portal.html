@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Southport Wrestling Training Portal</title>
+<meta name="description" content="Southport Wrestling freshman athletic development training portal.">
+<style>
+:root{--red:#b3132b;--red-dark:#850d1f;--black:#141518;--ink:#202328;--muted:#66707a;--paper:#fff;--bg:#eef0f2;--line:#d9dde1;--green:#24723a;--gold:#b78318}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,Helvetica,sans-serif;line-height:1.5}
+button,input{font:inherit}.top{background:var(--black);color:white;border-bottom:4px solid var(--red)}.wrap{max-width:1180px;margin:auto;padding:0 18px}
+.topin{height:68px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;gap:12px;align-items:center}.crest{width:42px;height:42px;border:2px solid white;border-radius:50%;display:grid;place-items:center;font-weight:900}.brand b{display:block;letter-spacing:.7px}.brand span{display:block;color:#c9cbd0;font-size:12px}.progress-mini{font-size:13px;color:#ddd}
+.hero{background:linear-gradient(135deg,#17181b,#2a2d33);color:#fff;padding:46px 0}.eyebrow{color:#ffcad3;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;font-size:13px}.hero h1{font-size:clamp(36px,6vw,64px);line-height:1.02;margin:9px 0 13px}.hero p{max-width:800px;font-size:19px;color:#e6e8ea;margin:0}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.chip{border:1px solid #777;padding:6px 10px;border-radius:999px;font-weight:800;font-size:13px}
+.nav{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 10px #0001}.navin{display:flex;gap:17px;overflow:auto;padding:10px 18px}.nav button{background:none;border:0;font-weight:800;color:var(--ink);cursor:pointer;white-space:nowrap;padding:3px}.nav button:hover{color:var(--red)}
+main{padding:22px 0 60px}.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px;margin:16px 0;box-shadow:0 3px 14px #00000009}h2{margin:0 0 12px;font-size:28px}h3{margin:8px 0}.muted{color:var(--muted)}
+.dashboard{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#f5f6f7;border-radius:10px;padding:14px}.stat strong{display:block;font-size:27px;color:var(--red)}.bar{height:9px;background:#e4e6e8;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:var(--red);width:0}
+.weeknav{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.weekbtn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:13px;text-align:left;cursor:pointer}.weekbtn.active{border:2px solid var(--red);background:#fff5f7}.weekbtn b{display:block}.weekbtn small{color:var(--muted)}
+.workout-tabs{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap}.daybtn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;font-weight:800;cursor:pointer}.daybtn.active{background:var(--red);color:white;border-color:var(--red)}
+.workout-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}.phase{color:var(--red);font-weight:900;text-transform:uppercase;letter-spacing:.7px;font-size:12px}.completeall{background:var(--black);color:white;border:0;border-radius:7px;padding:9px 12px;font-weight:800;cursor:pointer}
+.exercise{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:12px;margin:9px 0;background:#fff}.exercise.done{background:#f0f7f2;border-color:#bdd6c3}.exercise input{width:20px;height:20px;accent-color:var(--red)}.exercise .name{font-weight:900}.exercise .meta{font-size:13px;color:var(--muted)}.video{background:#f7f7f8;border:1px solid #dfe1e4;color:var(--red-dark);text-decoration:none;padding:7px 10px;border-radius:7px;font-size:13px;font-weight:900;white-space:nowrap}
+.cues{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.cue{padding:14px;border-radius:9px;background:#f7f8f9}.cue b{display:block;margin-bottom:3px}.warning{background:#fff6e7;border-left:5px solid #b46b00;padding:14px;border-radius:6px}
+.library-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.library-item{display:flex;justify-content:space-between;gap:8px;align-items:center;border:1px solid var(--line);padding:10px;border-radius:9px;background:#fff}
+.home{background:#eef7f0;border-color:#c9dfce}.coach{display:grid;grid-template-columns:1fr 1fr;gap:20px}.quote{border-left:5px solid var(--red);padding-left:15px;font-size:19px;font-weight:800}
+footer{background:var(--black);color:white;padding:30px 0}footer a{color:#fff}
+.toast{position:fixed;right:18px;bottom:18px;background:var(--black);color:#fff;padding:11px 14px;border-radius:9px;opacity:0;transform:translateY(10px);transition:.2s;z-index:50}.toast.show{opacity:1;transform:none}
+@media(max-width:800px){.dashboard,.coach{grid-template-columns:1fr}.weeknav{grid-template-columns:1fr 1fr}.library-grid{grid-template-columns:1fr}.exercise{grid-template-columns:28px 1fr}.exercise .video{grid-column:2;justify-self:start}.cues{grid-template-columns:1fr}.progress-mini{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap topin"><div class="brand"><div class="crest">S</div><div><b>SOUTHPORT WRESTLING</b><span>Freshman Athletic Development</span></div></div><div class="progress-mini" id="miniProgress">0% complete</div></div></header>
+
+<section class="hero"><div class="wrap">
+<div class="eyebrow">Southport Wrestling Training Portal</div>
+<h1>Build the Athlete.<br>Then Build the Lift.</h1>
+<p>A guided 8-week introduction to strength training, movement skills, jumping, landing, and Olympic-lift variations for athletes who are new to the weight room.</p>
+<div class="chips"><span class="chip">8 Weeks</span><span class="chip">2 Days / Week</span><span class="chip">50 Minutes</span><span class="chip">Beginner → Olympic Lift Variations</span></div>
+</div></section>
+
+<nav class="nav"><div class="wrap navin">
+<button onclick="go('dashboard')">Dashboard</button><button onclick="go('workouts')">Workouts</button><button onclick="go('videos')">Video Library</button><button onclick="go('home')">At Home</button><button onclick="go('coach')">Coach Skinner</button><button onclick="go('rules')">Rules</button>
+</div></nav>
+
+<main class="wrap">
+<section id="dashboard" class="dashboard">
+<div class="card"><h2>Your Training Dashboard</h2><p class="muted">Check off each exercise as you complete it. Your progress is saved in this browser.</p>
+<div class="statgrid"><div class="stat"><strong id="doneCount">0</strong>Exercises done</div><div class="stat"><strong id="totalCount">0</strong>Total exercises</div><div class="stat"><strong id="percent">0%</strong>Overall progress</div></div>
+<div style="margin-top:17px" class="bar"><span id="progressBar"></span></div>
+<p class="muted" id="statusText">Start with Week 1, Day A.</p></div>
+<div class="card"><h2>Training Philosophy</h2><p>We are teaching athletes how to train—not simply how to lift heavy weights.</p><ul><li>Movement quality first</li><li>Explosiveness without sacrificing control</li><li>Progress at the athlete's level</li><li>Consistency over maxes</li></ul></div>
+</section>
+
+<section id="workouts" class="card"><h2>Choose Your Week</h2>
+<div class="weeknav" id="weekNav"></div>
+<div class="workout-tabs"><button class="daybtn active" data-day="A">DAY A</button><button class="daybtn" data-day="B">DAY B</button></div>
+<div id="workout"></div>
+</section>
+
+<section id="videos" class="card"><h2>Exercise Video Library</h2><p class="muted">Use these to review an exercise. For Olympic lifts, videos are a review tool—not a substitute for coach instruction.</p><div class="library-grid" id="library"></div></section>
+
+<section id="home" class="card home"><h2>At-Home Athletic Workout</h2><p>You can improve athleticism without a weight room. Perform <b>3 rounds</b>, resting as needed.</p>
+<div class="grid"><div><b>10</b> Bodyweight Squats</div><div><b>8</b> Push-Ups</div><div><b>8/leg</b> Reverse Lunges</div><div><b>10</b> Hip Hinges</div><div><b>5</b> Broad Jumps</div><div><b>20 sec</b> Plank</div><div><b>20 yd</b> Farmer Carry if safe</div></div>
+<p><b>Everything should look good before you make it harder.</b></p></section>
+
+<section id="coach" class="card"><h2>Coach Skinner</h2><div class="coach">
+<div><p class="quote">“The goal is not to see how much weight you can lift. The goal is to learn how to train.”</p>
+<p><b>Nick Skinner</b><br>Head Wrestling Coach, Southport High School</p></div>
+<div><p>Strength and conditioning was an important part of Coach Skinner's development as a wrestler at Purdue University. His undergraduate study was in Health and Fitness, followed by a master's degree in Sport Pedagogy.</p><p>That background informs this program's emphasis on teaching movement, athletic development, and progressive skill rather than chasing numbers.</p><p class="muted">Southport Wrestling's public website identifies Coach Skinner as the Southport Head Coach and documents the program's championship history.</p></div>
+</div></section>
+
+<section id="rules" class="card"><h2>Weight Room Rules</h2><div class="warning"><b>Technique comes before weight.</b> If technique breaks down, stop the set or reduce the weight.</div>
+<ul><li>Ask a coach when you are unsure.</li><li>Never chase another athlete's weight.</li><li>Olympic lifts are not conditioning exercises.</li><li>Keep your lifting area organized.</li><li>Use equipment only as instructed.</li><li>At home, use only safe equipment and spaces.</li></ul></section>
+</main>
+
+<footer><div class="wrap"><b>SOUTHPORT WRESTLING</b><p>Freshman Athletic Development Training Portal</p><p><a href="https://www.southportwrestling.com/" target="_blank">SouthportWrestling.com</a></p></div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const workouts={
+1:{phase:"Learn to Move",A:[
+["Vertical Jump","3 × 3","Jump as high as possible; land quietly and under control."],
+["Snap Down","3 × 3","Start tall, then quickly absorb into an athletic position."],
+["Hip Hinge","3 × 5","Push hips back; keep the trunk strong."],
+["Kettlebell Deadlift","3 × 5","Brace, push the floor away, finish tall."],
+["Goblet Squat","3 × 8","Keep the whole foot connected to the floor."],
+["Push-Up","3 × 8","Straight body; control the descent."],
+["Dumbbell Row","3 × 10","Pull toward the hip without twisting."],
+["Farmer Carry","3 × 20 yd","Walk tall and keep the weights controlled."]
+],B:[
+["Broad Jump","3 × 3","Jump forward; land balanced and under control."],
+["Landing Practice","3 × 3","Quiet feet; knees and hips bend to absorb force."],
+["Hip Hinge","3 × 5","Push hips back while keeping a strong back."],
+["Kettlebell Deadlift","3 × 5","Brace and drive through the floor."],
+["Goblet Squat","3 × 8","Control the descent and stand tall."],
+["Dumbbell Bench Press","3 × 8","Control the dumbbells; keep shoulders stable."],
+["Lat Pulldown","3 × 10","Pull elbows toward the ribs."],
+["Reverse Lunge","2 × 8/leg","Step back and stay balanced."],
+["Farmer Carry","3 × 20 yd","Strong posture; controlled steps."]
+]},
+2:{phase:"Learn to Move",A:[
+["Vertical Jump","3 × 3","Explode up; land softly."],["Snap Down","3 × 3","Absorb into a strong athletic stance."],["Hip Hinge","3 × 5","Hips back, chest controlled."],["Kettlebell Deadlift","3 × 5","Brace and drive through the floor."],["Goblet Squat","3 × 8","Control depth and posture."],["Push-Up","3 × 8","Body stays rigid."],["Dumbbell Row","3 × 10","Pull toward your hip."],["Farmer Carry","3 × 20 yd","Stay tall."]],B:[
+["Broad Jump","3 × 3","Explode forward; stick the landing."],["Landing Practice","3 × 3","Quiet, balanced landings."],["Hip Hinge","3 × 5","Push hips backward."],["Kettlebell Deadlift","3 × 5","Brace and stand tall."],["Goblet Squat","3 × 8","Full-foot pressure."],["Dumbbell Bench Press","3 × 8","Controlled reps."],["Lat Pulldown","3 × 10","Elbows down and back."],["Reverse Lunge","2 × 8/leg","Stay balanced."],["Farmer Carry","3 × 20 yd","Controlled posture."]]},
+3:{phase:"Produce Force",A:[
+["Jump Shrug","3 × 3","Jump and shrug; finish tall."],["High Pull","3 × 3","Drive from the floor and keep the bar close."],["Hang Power Clean","5 × 3","Jump, pull close, receive under control."],["Front Squat","3 × 6","Elbows up; stay tall."],["Dumbbell Bench Press","3 × 8","Controlled press."],["Dumbbell Row","3 × 10","Stable torso."],["Sled Push","4 × 15–20 yd","Drive with powerful steps."]],B:[
+["Clean Pull","4 × 3","Push through the floor; extend hips."],["Muscle Clean","3 × 3","Fast elbows; catch high."],["Hang Power Clean","4 × 3","Explosive extension and controlled catch."],["Goblet or Front Squat","3 × 6","Strong bottom position."],["Push Press","3 × 5","Dip, drive, press."],["Romanian Deadlift","3 × 8","Hips back; feel hamstrings."],["Lat Pulldown","3 × 8–10","Pull elbows down."],["Medicine Ball Chest Pass","3 × 5","Explosive pass from athletic stance."]]},
+4:{phase:"Produce Force",A:[
+["Jump Shrug","3 × 3","Explosive extension."],["High Pull","3 × 3","Bar stays close."],["Hang Power Clean","5 × 3","Fast and technically clean."],["Front Squat","3 × 6","Stay tall."],["Dumbbell Bench Press","3 × 8","Control every rep."],["Dumbbell Row","3 × 10","No torso rotation."],["Sled Push","4 × 15–20 yd","Powerful steps."]],B:[
+["Clean Pull","4 × 3","Legs and hips drive the bar."],["Muscle Clean","3 × 3","Fast elbows."],["Hang Power Clean","4 × 3","Controlled catch."],["Goblet or Front Squat","3 × 6","Strong posture."],["Push Press","3 × 5","Leg drive."],["Romanian Deadlift","3 × 8","Hinge under control."],["Lat Pulldown","3 × 8–10","Elbows down."],["Medicine Ball Chest Pass","3 × 5","Explosive throw."]]},
+5:{phase:"Receive Force",A:[["Hang Power Clean","5 × 3","Explode and receive under control."],["Front Squat","4 × 5","Strong front-rack position."],["Push Press","3 × 5","Dip and drive."],["Pull-Up or Lat Pulldown","3 × 8","Control the pull."],["Farmer Carry","3 × 20 yd","Stay tall."]],B:[["Clean from Knee/Blocks","5 × 2","Start balanced; finish explosively."],["Hang Power Clean","3 × 2","Fast, crisp reps."],["Back Squat","3 × 5","Brace and control."],["Dumbbell Bench Press","3 × 8","Controlled."],["Romanian Deadlift","3 × 6–8","Hips back."],["Dumbbell Row","3 × 8–10","Stable torso."],["Broad Jump","3 × 3","Maximum quality, full recovery."]]},
+6:{phase:"Receive Force",A:[["Hang Power Clean","5 × 3","Explosive, controlled catch."],["Front Squat","4 × 5","Elbows high."],["Push Press","3 × 5","Leg drive."],["Pull-Up or Lat Pulldown","3 × 8","Controlled."],["Farmer Carry","3 × 20 yd","Strong posture."]],B:[["Clean from Knee/Blocks","5 × 2","Balanced start; powerful finish."],["Hang Power Clean","3 × 2","Fast and clean."],["Back Squat","3 × 5","Control depth."],["Dumbbell Bench Press","3 × 8","Controlled."],["Romanian Deadlift","3 × 6–8","Strong hinge."],["Dumbbell Row","3 × 8–10","Pull to hip."],["Broad Jump","3 × 3","Explosive, quality reps."]]},
+7:{phase:"Put It Together",A:[["Power Clean","5 × 2","Explode; catch under control."],["Front Squat","4 × 4–5","Own the position."],["Push Press","3 × 5","Dip and drive."],["Dumbbell Row","3 × 8","Stable torso."],["Farmer Carry","3 × 20 yd","Strong posture."]],B:[["Hang Power Snatch","5 × 3","Wide grip; explosive extension; controlled catch."],["Back Squat","4 × 5","Brace and control."],["Romanian Deadlift","3 × 8","Hinge."],["Dumbbell Bench Press","3 × 8","Controlled."],["Medicine Ball Throw","3 × 5","Explosive hips and trunk."]]},
+8:{phase:"Put It Together",A:[["Power Clean","5 × 2","Fast, crisp technique."],["Front Squat","4 × 4–5","Strong receiving position."],["Push Press","3 × 5","Leg drive."],["Dumbbell Row","3 × 8","Controlled."],["Farmer Carry","3 × 20 yd","Finish strong."]],B:[["Hang Power Snatch","5 × 3","Explosive and controlled."],["Back Squat","4 × 5","Strong brace."],["Romanian Deadlift","3 × 8","Controlled hinge."],["Dumbbell Bench Press","3 × 8","Controlled."],["Medicine Ball Throw","3 × 5","Maximum quality."]]}
+};
+
+const queries={
+"Vertical Jump":"vertical jump technique","Snap Down":"athletic snap down drill","Hip Hinge":"hip hinge technique",
+"Kettlebell Deadlift":"kettlebell deadlift technique","Goblet Squat":"goblet squat technique","Push-Up":"push up technique beginner",
+"Dumbbell Row":"dumbbell row technique","Farmer Carry":"farmer carry technique","Broad Jump":"broad jump technique",
+"Landing Practice":"jump landing mechanics","Dumbbell Bench Press":"dumbbell bench press technique","Lat Pulldown":"lat pulldown technique",
+"Reverse Lunge":"reverse lunge technique","Jump Shrug":"Catalyst Athletics jump shrug","High Pull":"Catalyst Athletics clean high pull",
+"Hang Power Clean":"Catalyst Athletics hang power clean","Front Squat":"front squat technique","Sled Push":"sled push technique",
+"Clean Pull":"Catalyst Athletics clean pull","Muscle Clean":"Catalyst Athletics muscle clean","Push Press":"Catalyst Athletics push press",
+"Romanian Deadlift":"Romanian deadlift technique","Medicine Ball Chest Pass":"medicine ball chest pass technique",
+"Pull-Up or Lat Pulldown":"pull up technique","Clean from Knee/Blocks":"Catalyst Athletics clean from blocks",
+"Back Squat":"back squat technique","Power Clean":"Catalyst Athletics power clean","Hang Power Snatch":"Catalyst Athletics hang power snatch",
+"Medicine Ball Throw":"medicine ball scoop throw technique","Plank":"plank technique"
+};
+
+let week=1,day="A";
+const key=(w,d,i)=>`spw_${w}_${d}_${i}`;
+function save(){localStorage.setItem("spw_portal_progress",JSON.stringify(Object.fromEntries(Object.keys(localStorage).filter(k=>k.startsWith("spw_")).map(k=>[k,localStorage.getItem(k)]))));}
+function isDone(w,d,i){return localStorage.getItem(key(w,d,i))==="1"}
+function setDone(w,d,i,v){localStorage.setItem(key(w,d,i),v?"1":"0");save();render();toast(v?"Exercise completed":"Exercise unchecked")}
+function allExercises(){return Object.entries(workouts).flatMap(([w,x])=>["A","B"].flatMap(d=>x[d]));}
+function renderStats(){
+ const total=allExercises().length,done=Object.keys(localStorage).filter(k=>k.startsWith("spw_")&&k.split("_").length===4&&localStorage.getItem(k)==="1").length;
+ const pct=total?Math.round(done/total*100):0;
+ document.getElementById("doneCount").textContent=done;document.getElementById("totalCount").textContent=total;document.getElementById("percent").textContent=pct+"%";
+ document.getElementById("progressBar").style.width=pct+"%";document.getElementById("miniProgress").textContent=pct+"% complete";
+}
+function renderWeeks(){
+ const n=document.getElementById("weekNav");n.innerHTML="";
+ for(let i=1;i<=8;i++){const b=document.createElement("button");b.className="weekbtn"+(i===week?" active":"");b.innerHTML=`<b>Week ${i}</b><small>${workouts[i].phase}</small>`;b.onclick=()=>{week=i;render()};n.appendChild(b)}
+}
+function renderWorkout(){
+ const box=document.getElementById("workout"), arr=workouts[week][day];box.innerHTML=`<div class="workout-head"><div><div class="phase">Week ${week} • ${workouts[week].phase}</div><h2>Day ${day}</h2><p class="muted">Complete each movement with quality. Your coach may adjust weight, sets, reps, or exercise level.</p></div><button class="completeall" onclick="completeAll()">Complete All</button></div>`;
+ arr.forEach((e,i)=>{const [name,reps,cue]=e,d=document.createElement("div");d.className="exercise"+(isDone(week,day,i)?" done":"");d.innerHTML=`<input type="checkbox" ${isDone(week,day,i)?"checked":""} aria-label="Mark ${name} complete"><div><div class="name">${name}</div><div class="meta">${reps} • ${cue}</div></div><a class="video" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(queries[name]||name+" exercise technique")}">Watch</a>`;d.querySelector("input").onchange=e=>setDone(week,day,i,e.target.checked);box.appendChild(d)});
+}
+function completeAll(){workouts[week][day].forEach((_,i)=>localStorage.setItem(key(week,day,i),"1"));save();render();toast(`Week ${week}, Day ${day} completed`)}
+function render(){renderStats();renderWeeks();renderWorkout();document.querySelectorAll(".daybtn").forEach(b=>b.classList.toggle("active",b.dataset.day===day))}
+function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth"});if(id==="workouts")render()}
+function toast(s){const t=document.getElementById("toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1600)}
+document.querySelectorAll(".daybtn").forEach(b=>b.onclick=()=>{day=b.dataset.day;render()});
+const lib=[...new Set(Object.values(queries))];
+document.getElementById("library").innerHTML=lib.map(q=>`<div class="library-item"><b>${q.replace(/Catalyst Athletics /,"")}</b><a class="video" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}">Watch</a></div>`).join("");
+render();
+</script>
+</body>
+</html>
